@@ -1,0 +1,29 @@
+# Use the official Node.js image to build the frontend
+FROM node:18 AS build
+
+# Set the working directory
+WORKDIR /app
+
+# Copy package.json and package-lock.json
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the rest of the application files
+COPY . ./
+
+# Build the Vue.js app for production
+RUN npm run build --prod
+
+# Use the nginx image to serve the static files
+FROM nginx:alpine
+
+# Copy the built app to the nginx html directory
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# Expose port 80 to the outside world
+EXPOSE 80
+
+# Start nginx when the container starts
+CMD ["nginx", "-g", "daemon off;"]
