@@ -4,7 +4,7 @@ services:
     env: docker
     plan: free # or "starter", "professional", etc.
     buildCommand: ""
-    startCommand: "dotnet Backend.dll" # or your backend start command
+    startCommand: "dotnet backend.dll" # or your backend start command
     dockerfilePath: backend/Dockerfile # Path to your backend Dockerfile
     dockerBuildContext: ./ # Context is the root directory
     port: 8080
