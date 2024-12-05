@@ -48,3 +48,4 @@ C:\Users\jusht\inv\backend\obj\Debug\net8.0\refint\backend.dll
 C:\Users\jusht\inv\backend\obj\Debug\net8.0\backend.pdb
 C:\Users\jusht\inv\backend\obj\Debug\net8.0\backend.genruntimeconfig.cache
 C:\Users\jusht\inv\backend\obj\Debug\net8.0\ref\backend.dll
+C:\Users\jusht\inv\backend\bin\Debug\net8.0\appsettings.Production.json

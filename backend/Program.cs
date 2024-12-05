@@ -10,19 +10,24 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigins", policy =>
     {
-        if (builder.Environment.IsDevelopment())
-        {
-            policy.WithOrigins(corsUrls["Development"])
-                  .AllowAnyHeader()
-                  .AllowAnyMethod();
+        // Get the environment name (Development or Production)
+        var environment = builder.Environment.EnvironmentName;
 
-        }
-        else
+        // Fetch the appropriate CORS URL based on the environment
+        var corsUrl = environment == "Development"
+            ? builder.Configuration["CORS:Development"]  // Fetch from appsettings.Development.json
+            : builder.Configuration["CORS:Production"]; // Fetch from appsettings.Production.json
+
+        // Ensure corsUrl is not null or empty
+        if (string.IsNullOrEmpty(corsUrl))
         {
-            policy.WithOrigins(corsUrls["Production"])
-               .AllowAnyHeader()
-               .AllowAnyMethod();
+            throw new InvalidOperationException("CORS URL is not configured properly in appsettings.");
         }
+
+        // Configure the CORS policy to allow the necessary origins
+        policy.WithOrigins(corsUrl)
+              .AllowAnyHeader()
+              .AllowAnyMethod();
     });
 });
 
@@ -31,13 +36,22 @@ builder.Services.AddScoped<IPdfRepository, PdfRepository>();
 builder.Services.AddScoped<IPdfService, PdfService>();
 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
-
-
-
 var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+else
+{
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
+}
 
 app.UseCors("AllowSpecificOrigins");
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
 app.MapControllers();
