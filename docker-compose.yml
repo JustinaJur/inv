@@ -1,22 +1,22 @@
-# services:
-#   backend:
-#     build:
-#       context: ./backend  # The build context should be the root directory where inv.sln and backend are located
-#       ## dockerfile: Dockerfile  # Path to the Dockerfile inside the 'backend' folder
-#     ports:
-#       - "8080:80"
-#     networks:
-#       - app-network
+services:
+  backend:
+    build:
+      context: ./backend  # The build context should be the root directory where inv.sln and backend are located
+      ## dockerfile: Dockerfile  # Path to the Dockerfile inside the 'backend' folder
+    ports:
+      - "8080:80"
+    networks:
+      - app-network
 
-#   frontend:
-#     build:
-#       context: ./client  # The build context for the frontend
-#      ### dockerfile: Dockerfile  # Path to the Dockerfile in the client folder
-#     ports:
-#       - "80:80"
-#     networks:
-#       - app-network
+  frontend:
+    build:
+      context: ./client  # The build context for the frontend
+     ### dockerfile: Dockerfile  # Path to the Dockerfile in the client folder
+    ports:
+      - "80:80"
+    networks:
+      - app-network
 
-# networks:
-#   app-network:
-#     driver: bridge
+networks:
+  app-network:
+    driver: bridge
