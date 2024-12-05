@@ -5,13 +5,16 @@ FROM node:18 AS build
 WORKDIR /app
 
 # Copy package.json and package-lock.json
-COPY package*.json ./
+#COPY package*.json ./
+COPY client/package*.json ./ 
+
 
 # Install dependencies
 RUN npm install
+COPY client/src ./src
 
 # Copy the rest of the application files
-COPY . ./
+#COPY . ./
 
 # Build the Vue.js app for production
 RUN npm run build --prod
