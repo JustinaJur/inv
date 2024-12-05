@@ -1,5 +1,4 @@
-const PDF_API_URL =
-  process.env.VUE_APP_PDF_API_URL || "http://localhost:5198/api/pdf";
+const BASE_URL = process.env.VUE_APP_BASE_URL || "http://localhost:5198";
 
 // Main method for handling file upload and PDF generation
 export const generatePdfFromExcel = async (file) => {
@@ -27,7 +26,7 @@ const createFormData = (file) => {
 
 // Send the Excel file to the backend API and get the generated PDF
 const sendFileToBackend = async (formData) => {
-  const response = await fetch(`${PDF_API_URL}/generatePdf`, {
+  const response = await fetch(`${BASE_URL}/api/pdf/generatePdf`, {
     method: "POST",
     body: formData,
   });
