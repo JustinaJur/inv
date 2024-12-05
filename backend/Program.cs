@@ -4,33 +4,39 @@ using OfficeOpenXml;
 using static inv.Services.PDFService;
 
 var builder = WebApplication.CreateBuilder(args);
+var corsUrls = builder.Configuration.GetSection("CORS").Get<IDictionary<string, string>>();
+// Define CORS policy based on environment
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigins", policy =>
+    {
+        // Allow CORS for local environment (localhost)
+        if (builder.Environment.IsDevelopment())
+        {
+            policy.WithOrigins(corsUrls["Development"])  // Use Development URL from config
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        }
+        else // Production environment
+        {
+            policy.WithOrigins(corsUrls["Production"])  // Production URL
+               .AllowAnyHeader()
+               .AllowAnyMethod();
+        }
+    });
+});
+
 builder.Services.AddControllers();
-builder.Services.AddCors();
-
-
-
 builder.Services.AddScoped<IPdfRepository, PdfRepository>();
 builder.Services.AddScoped<IPdfService, PdfService>();
-
 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
+
+
+
 var app = builder.Build();
-
-if (app.Environment.IsDevelopment())
-{
-    app.UseDeveloperExceptionPage();
-}
-else
-{
-    app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
-}
-
-app.UseCors(policy => policy
-    .WithOrigins("http://localhost:8080")
-    .AllowAnyMethod()
-    .AllowAnyHeader()
-    );
+// Apply CORS policy based on environment
+app.UseCors("AllowSpecificOrigins");
 
 app.UseHttpsRedirection();
 app.UseRouting();
