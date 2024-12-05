@@ -1,14 +1,16 @@
 <template>
-  <InvoiceGenerator msg="Sąskaitų generatorius" />
+  <InvoiceGeneratorSimple msg="Sąskaitų generatorius" />
 </template>
 
 <script>
-import InvoiceGenerator from "./components/InvoiceGenerator.vue";
+////import InvoiceGenerator from "./components/InvoiceGenerator.vue";
+import InvoiceGeneratorSimple from "./components/InvoiceGeneratorSimple.vue";
 
 export default {
   name: "App",
   components: {
-    InvoiceGenerator,
+    // InvoiceGenerator,
+    InvoiceGeneratorSimple,
   },
 };
 </script>

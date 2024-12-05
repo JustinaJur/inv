@@ -40,9 +40,9 @@
 import { jsPDF } from "jspdf";
 import readXlsxFile from "read-excel-file";
 import "jspdf-autotable";
-import { getCurrrentDate, getPreviousMonth } from "@/helpers/date.js";
-import { loadFonts } from "@/helpers/fonts.js";
-import { createObjectsFromTwoArrays } from "@/helpers/dataTransformations.js";
+import { getCurrrentDate, getPreviousMonth } from "@/services/helpers/date.js";
+import { loadFonts } from "@/services/helpers/fonts.js";
+import { createObjectsFromTwoArrays } from "@/services/helpers/dataTransformations.js";
 import { tableHeaders } from "@/constants.js";
 
 export default {
