@@ -1,8 +1,8 @@
 services:
   backend:
     build:
-      context: ./  # The build context should be the root directory where inv.sln and backend are located
-      dockerfile: backend/Dockerfile  # Path to the Dockerfile inside the 'backend' folder
+      context: ./backend  # The build context should be the root directory where inv.sln and backend are located
+      dockerfile: Dockerfile  # Path to the Dockerfile inside the 'backend' folder
     ports:
       - "8080:80"
     networks:
@@ -10,8 +10,8 @@ services:
 
   frontend:
     build:
-      context: ./  # The build context for the frontend
-      dockerfile: client/Dockerfile  # Path to the Dockerfile in the client folder
+      context: ./client  # The build context for the frontend
+      dockerfile: Dockerfile  # Path to the Dockerfile in the client folder
     ports:
       - "80:80"
     networks:
