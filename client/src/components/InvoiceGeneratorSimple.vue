@@ -20,7 +20,7 @@
       </div>  -->
 
       <input type="file" @change="handleFileUpload" />
-      <button @click="getPdf">Generate PDF</button>
+      <button @click="getPdf" class="cosmic-button">Generate PDF</button>
     </div>
   </div>
 </template>
@@ -28,7 +28,7 @@
 <script>
 import "jspdf-autotable";
 import { loadFonts } from "@/services/helpers/fonts.js";
-import { uploadExcelAndGeneratePdf } from "@/services/pdfService.js";
+import { generatePdfFromExcel } from "@/services/pdfService.js";
 
 export default {
   name: "inv-generator-simple",
@@ -62,7 +62,7 @@ export default {
         alert("Please select an Excel file");
         return;
       }
-      uploadExcelAndGeneratePdf(file);
+      generatePdfFromExcel(file);
     },
   },
 };

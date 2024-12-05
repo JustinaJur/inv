@@ -1,36 +1,51 @@
-const PDF_BASE_API = "http://localhost:5198/api/pdf";
+const PDF_API_URL =
+  process.env.VUE_APP_PDF_API_URL || "http://localhost:5198/api/pdf";
 
-export const uploadExcelAndGeneratePdf = async (file) => {
-  const formData = new FormData();
-  formData.append("file", file);
+// Main method for handling file upload and PDF generation
+export const generatePdfFromExcel = async (file) => {
+  if (!file) {
+    alert("Please select a valid Excel file.");
+    return;
+  }
 
-  const pdfBlob = await sendExcelToBackend(formData);
-  downloadPdf(pdfBlob);
-};
-
-export const sendExcelToBackend = async (formData) => {
   try {
-    const response = await fetch(`${PDF_BASE_API}/generatePdf`, {
-      method: "POST",
-      body: formData,
-    });
-
-    if (!response.ok) {
-      throw new Error("Failed to generate PDF");
-    }
-
-    return await response.blob();
+    const formData = createFormData(file);
+    const pdfBlob = await sendFileToBackend(formData);
+    initiatePdfDownload(pdfBlob);
   } catch (error) {
-    console.error(error);
-    alert("Error generating PDF");
-    throw error;
+    console.error("Error generating PDF:", error);
+    alert("Something went wrong while generating the PDF.");
   }
 };
 
-function downloadPdf(blob) {
+// Prepare FormData from the Excel file
+const createFormData = (file) => {
+  const formData = new FormData();
+  formData.append("file", file);
+  return formData;
+};
+
+// Send the Excel file to the backend API and get the generated PDF
+const sendFileToBackend = async (formData) => {
+  const response = await fetch(`${PDF_API_URL}/generatePdf`, {
+    method: "POST",
+    body: formData,
+  });
+
+  if (!response.ok) {
+    throw new Error(
+      "Failed to generate PDF. Server returned: " + response.statusText
+    );
+  }
+
+  return await response.blob();
+};
+
+// Handle the PDF blob and trigger file download
+const initiatePdfDownload = (blob) => {
   const url = window.URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
   link.download = "generated_file.pdf";
   link.click();
-}
+};
