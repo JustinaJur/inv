@@ -15,7 +15,6 @@ builder.Services.AddCors(options =>
             policy.WithOrigins(corsUrls["Development"])
                   .AllowAnyHeader()
                   .AllowAnyMethod();
-            Console.WriteLine("Development")
 
         }
         else
@@ -23,7 +22,6 @@ builder.Services.AddCors(options =>
             policy.WithOrigins(corsUrls["Production"])
                .AllowAnyHeader()
                .AllowAnyMethod();
-            Console.WriteLine("Production")
         }
     });
 });
