@@ -10,9 +10,6 @@ COPY client/package*.json ./
 RUN npm install
 COPY client/src ./src
 
-# Copy the rest of the application files
-#COPY . ./
-
 # Build the Vue.js app for production
 RUN npm run build --prod
 

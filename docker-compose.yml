@@ -10,8 +10,8 @@ services:
 
   frontend:
     build:
-      context: ./client  # The build context for the frontend
-      dockerfile: Dockerfile  # Path to the Dockerfile in the client folder
+      context: ./  # The build context for the frontend
+      dockerfile: client/Dockerfile  # Path to the Dockerfile in the client folder
     ports:
       - "80:80"
     networks:
