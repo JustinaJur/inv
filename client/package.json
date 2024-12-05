@@ -9,6 +9,9 @@
   },
   "dependencies": {
     "core-js": "^3.8.3",
+    "jspdf": "^2.5.2",
+    "jspdf-autotable": "^3.8.4",
+    "read-excel-file": "^5.8.6",
     "vue": "^3.2.13"
   },
   "devDependencies": {

@@ -1,15 +1,14 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Wellcome to Your Vue.js App" />
+  <InvoiceGenerator msg="Sąskaitų generatorius" />
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import InvoiceGenerator from "./components/InvoiceGenerator.vue";
 
 export default {
   name: "App",
   components: {
-    HelloWorld,
+    InvoiceGenerator,
   },
 };
 </script>
