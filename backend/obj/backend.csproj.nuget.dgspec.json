@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\jusht\\inv\\backend\\backend.csproj": {}
+    "C:\\Users\\jusht\\inv\\backend\\backend.csproj": {}
   },
   "projects": {
-    "c:\\Users\\jusht\\inv\\backend\\backend.csproj": {
+    "C:\\Users\\jusht\\inv\\backend\\backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\jusht\\inv\\backend\\backend.csproj",
+        "projectUniqueName": "C:\\Users\\jusht\\inv\\backend\\backend.csproj",
         "projectName": "backend",
-        "projectPath": "c:\\Users\\jusht\\inv\\backend\\backend.csproj",
+        "projectPath": "C:\\Users\\jusht\\inv\\backend\\backend.csproj",
         "packagesPath": "C:\\Users\\jusht\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\jusht\\inv\\backend\\obj\\",
+        "outputPath": "C:\\Users\\jusht\\inv\\backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jusht\\AppData\\Roaming\\NuGet\\NuGet.Config"
