@@ -1,6 +1,7 @@
 const BASE_URL = process.env.VUE_APP_BASE_URL || "http://localhost:5198";
 
 console.log(process.env.VUE_APP_BASE_URL);
+console.log(process.env);
 
 console.log("env", process.env.NODE_ENV);
 
