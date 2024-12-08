@@ -2,6 +2,8 @@ const BASE_URL = process.env.VUE_APP_BASE_URL || "http://localhost:5198";
 
 console.log(process.env.VUE_APP_BASE_URL);
 
+console.log("env", process.env.NODE_ENV);
+
 // Main method for handling file upload and PDF generation
 export const generatePdfFromExcel = async (file) => {
   if (!file) {
