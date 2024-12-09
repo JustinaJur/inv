@@ -7,35 +7,45 @@ var builder = WebApplication.CreateBuilder(args);
 
 //var allowedOrigins = builder.Configuration.GetSection("CorsSettings:AllowedOrigins").Get<string[]>();
 
-var corsUrls = builder.Configuration.GetSection("CORS").Get<IDictionary<string, string>>();
+//var corsUrls = builder.Configuration.GetSection("CORS").Get<IDictionary<string, string>>();
+
+// builder.Services.AddCors(options =>
+// {
+//     options.AddPolicy("AllowSpecificOrigins", policy =>
+//     {
+//         // Get the environment name (Development or Production)
+//         var environment = builder.Environment.EnvironmentName;
+
+//         // Fetch the appropriate CORS URL based on the environment
+//         var corsUrl = environment == "Development"
+//             ? builder.Configuration["CORS:Development"]  // Fetch from appsettings.Development.json
+//             : builder.Configuration["CORS:Production"]; // Fetch from appsettings.Production.json
+
+//         Console.WriteLine(environment);
+//         Console.WriteLine(corsUrl);
+
+//         // Ensure corsUrl is not null or empty
+//         if (string.IsNullOrEmpty(corsUrl))
+//         {
+//             throw new InvalidOperationException("CORS URL is not configured properly in appsettings.");
+//         }
+
+//         // Configure the CORS policy to allow the necessary origins
+//         policy.WithOrigins(corsUrl)
+//               .AllowAnyHeader()
+//               .AllowAnyMethod();
+//     });
+// });
+
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowSpecificOrigins", policy =>
-    {
-        // Get the environment name (Development or Production)
-        var environment = builder.Environment.EnvironmentName;
-
-        // Fetch the appropriate CORS URL based on the environment
-        var corsUrl = environment == "Development"
-            ? builder.Configuration["CORS:Development"]  // Fetch from appsettings.Development.json
-            : builder.Configuration["CORS:Production"]; // Fetch from appsettings.Production.json
-
-        Console.WriteLine(environment);
-        Console.WriteLine(corsUrl);
-
-        // Ensure corsUrl is not null or empty
-        if (string.IsNullOrEmpty(corsUrl))
-        {
-            throw new InvalidOperationException("CORS URL is not configured properly in appsettings.");
-        }
-
-        // Configure the CORS policy to allow the necessary origins
-        policy.WithOrigins(corsUrl)
-              .AllowAnyHeader()
-              .AllowAnyMethod();
-    });
+    options.AddPolicy("AllowFrontend",
+        builder => builder.WithOrigins("https://inv-w4uc.onrender.com") // Frontend URL
+                          .AllowAnyHeader()
+                          .AllowAnyMethod());
 });
+
 
 builder.Services.AddControllers();
 builder.Services.AddScoped<IPdfRepository, PdfRepository>();
