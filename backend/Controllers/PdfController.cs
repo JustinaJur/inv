@@ -28,4 +28,10 @@ public class PdfController : ControllerBase
 
         return File(pdfBytes, "application/pdf", "saskaita.pdf");
     }
+
+    [HttpGet("test")]
+    public IActionResult Test()
+    {
+        return Ok("test");
+    }
 }
