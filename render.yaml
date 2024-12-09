@@ -11,14 +11,27 @@ services:
     regions:
       - oregon # Choose the appropriate region
 
-  - type: web
+  # - type: web
+  #   name: inv-frontend
+  #   env: docker
+  #   plan: free # or other plans as needed
+  #   buildCommand: ""
+  #   startCommand: 'nginx -g "daemon off;"' # or your frontend start command
+  #   dockerfilePath: client/Dockerfile # Path to your frontend Dockerfile
+  #   dockerBuildContext: ./ # Context is the root directory
+  #   port: 80
+  #   regions:
+  #     - oregon # Choose the appropriate region
+
+    - type: web
     name: inv-frontend
     env: docker
     plan: free # or other plans as needed
-    buildCommand: ""
-    startCommand: 'nginx -g "daemon off;"' # or your frontend start command
-    dockerfilePath: client/Dockerfile # Path to your frontend Dockerfile
-    dockerBuildContext: ./ # Context is the root directory
-    port: 80
+    buildCommand: |
+      docker build --build-arg VUE_APP_BASE_URL=https://inv-w4uc.onrender.com/ -t inv-frontend .
+    startCommand: 'nginx -g "daemon off;"'  # Start Nginx to serve the frontend
+    dockerfilePath: client/Dockerfile  # Path to your frontend Dockerfile
+    dockerBuildContext: ./  # Context is the root directory
+    port: 80  # Port for the frontend service
     regions:
-      - oregon # Choose the appropriate region
+      - oregon  # Choose the appropriate region for your frontend
