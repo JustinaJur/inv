@@ -16,7 +16,7 @@ services:
     env: docker
     plan: free # or other plans as needed
     buildCommand: |
-      docker build --build-arg VUE_APP_BASE_URL=https://inv-w4uc.onrender.com/ -t inv-frontend .
+      docker build --build-arg VUE_APP_BASE_URL=https://inv-w4uc.onrender.com -t inv-frontend .
     startCommand: 'nginx -g "daemon off;"'  # Start Nginx to serve the frontend
     dockerfilePath: client/Dockerfile  # Path to your frontend Dockerfile
     dockerBuildContext: ./  # Context is the root directory
