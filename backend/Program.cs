@@ -18,6 +18,9 @@ builder.Services.AddCors(options =>
             ? builder.Configuration["CORS:Development"]  // Fetch from appsettings.Development.json
             : builder.Configuration["CORS:Production"]; // Fetch from appsettings.Production.json
 
+        Console.WriteLine(environment);
+        Console.WriteLine(corsUrl);
+
         // Ensure corsUrl is not null or empty
         if (string.IsNullOrEmpty(corsUrl))
         {

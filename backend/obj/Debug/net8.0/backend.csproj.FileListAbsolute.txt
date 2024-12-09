@@ -49,3 +49,9 @@ C:\Users\jusht\inv\backend\obj\Debug\net8.0\backend.pdb
 C:\Users\jusht\inv\backend\obj\Debug\net8.0\backend.genruntimeconfig.cache
 C:\Users\jusht\inv\backend\obj\Debug\net8.0\ref\backend.dll
 C:\Users\jusht\inv\backend\bin\Debug\net8.0\appsettings.Production.json
+c:\Users\jusht\inv\backend\bin\Debug\net8.0\publish\web.config
+c:\Users\jusht\inv\backend\bin\Debug\net8.0\publish\appsettings.Development.json
+c:\Users\jusht\inv\backend\bin\Debug\net8.0\publish\appsettings.json
+c:\Users\jusht\inv\backend\bin\Debug\net8.0\publish\appsettings.Production.json
+c:\Users\jusht\inv\backend\bin\Debug\net8.0\publish\backend.deps.json
+c:\Users\jusht\inv\backend\bin\Debug\net8.0\publish\backend.runtimeconfig.json
