@@ -10,6 +10,9 @@ services:
     port: 8080
     regions:
       - oregon # Choose the appropriate region
+    envVars:
+      - key: CORS
+        value: "https://inv-w4uc.onrender.com" 
 
     - type: web
     name: inv-frontend
