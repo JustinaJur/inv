@@ -4,6 +4,9 @@ using OfficeOpenXml;
 using static inv.Services.PDFService;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//var allowedOrigins = builder.Configuration.GetSection("CorsSettings:AllowedOrigins").Get<string[]>();
+
 var corsUrls = builder.Configuration.GetSection("CORS").Get<IDictionary<string, string>>();
 
 builder.Services.AddCors(options =>
