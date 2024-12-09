@@ -11,18 +11,6 @@ services:
     regions:
       - oregon # Choose the appropriate region
 
-  # - type: web
-  #   name: inv-frontend
-  #   env: docker
-  #   plan: free # or other plans as needed
-  #   buildCommand: ""
-  #   startCommand: 'nginx -g "daemon off;"' # or your frontend start command
-  #   dockerfilePath: client/Dockerfile # Path to your frontend Dockerfile
-  #   dockerBuildContext: ./ # Context is the root directory
-  #   port: 80
-  #   regions:
-  #     - oregon # Choose the appropriate region
-
     - type: web
     name: inv-frontend
     env: docker
