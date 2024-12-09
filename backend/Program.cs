@@ -40,7 +40,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowFrontend",
+    options.AddPolicy("AllowSpecificOrigins",
         builder => builder.WithOrigins("https://inv-w4uc.onrender.com") // Frontend URL
                           .AllowAnyHeader()
                           .AllowAnyMethod());
