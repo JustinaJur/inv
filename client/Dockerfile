@@ -6,6 +6,10 @@ WORKDIR /app
 
 COPY client/package*.json ./ 
 
+# Set the environment variable for the build process 
+ARG VUE_APP_BASE_URL
+ENV VUE_APP_BASE_URL=$VUE_APP_BASE_URL
+
 # Install dependencies
 RUN npm install
 COPY client/src ./src

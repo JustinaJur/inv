@@ -11,4 +11,6 @@ module.exports = {
       }),
     ],
   },
+  // Set the publicPath here for the build process
+  publicPath: process.env.BASE_URL || "/",
 };
