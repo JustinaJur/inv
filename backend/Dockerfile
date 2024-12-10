@@ -57,11 +57,12 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 # Set the working directory
 WORKDIR /app
 
-# Install fonts (e.g., DejaVu fonts)
 RUN apt-get update && apt-get install -y \
-    fonts-dejavu-core \
-    fonts-dejavu-mono \
-    fonts-dejavu-extra \
+    ttf-mscorefonts-installer \
+    fonts-dejavu \
+    fonts-liberation \
+    fontconfig \
+    && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy the published app from the build stage

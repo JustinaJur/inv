@@ -45,6 +45,22 @@ const sendFileToBackend = async (formData) => {
   return await response.blob();
 };
 
+export const test = async () => {
+  const response = await fetch(`${BASE_URL}/api/pdf/test`, {
+    method: "GET",
+  });
+
+  console.log("res", response);
+
+  if (!response.ok) {
+    throw new Error(
+      "Failed to generate PDF. Server returned: " + response.statusText
+    );
+  }
+
+  return response;
+};
+
 // Handle the PDF blob and trigger file download
 const initiatePdfDownload = (blob) => {
   const url = window.URL.createObjectURL(blob);
