@@ -70,7 +70,7 @@ using static inv.Services.PDFService;
 // app.Run();
 
 
-var builder = WebApplication.CreateBuilder(args);
+//var builder = WebApplication.CreateBuilder(args);
 
 // builder.Services.AddCors(options =>
 // {
@@ -82,30 +82,75 @@ var builder = WebApplication.CreateBuilder(args);
 //         });
 // });
 
-builder.Services.AddCors(builder =>
+// builder.Services.AddCors(builder =>
+// {
+//     builder.AddPolicy("AllowAll", options =>
+//     {
+//         options.AllowAnyOrigin()
+//             .AllowAnyMethod()
+//             .AllowAnyHeader();
+//     });
+// });
+
+// builder.Services.AddControllers();
+// builder.Services.AddScoped<IPdfRepository, PdfRepository>();
+// builder.Services.AddScoped<IPdfService, PdfService>();
+// ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+// builder.Services.AddControllers();
+
+// var app = builder.Build();
+
+// app.UseHttpsRedirection();
+// app.UseStaticFiles();
+// app.UseRouting();
+
+// app.UseCors("AllowAll");
+
+// app.UseAuthorization();
+
+// app.MapControllers();
+
+// app.Run();
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Get the CORS allowed origin based on the environment
+string corsUrl;
+
+// Check for the environment
+if (builder.Environment.IsDevelopment())
 {
-    builder.AddPolicy("AllowAll", options =>
+    // Use the Development URL
+    corsUrl = builder.Configuration["CORS:Development"];
+}
+else
+{
+    // Use the Production URL from the environment variable or fallback to a default
+    corsUrl = builder.Configuration["CORS:Production"] ?? builder.Configuration["CORS_ALLOWED_ORIGIN"];
+}
+
+// Add CORS configuration
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin", policy =>
     {
-        options.AllowAnyOrigin()
-            .AllowAnyMethod()
-            .AllowAnyHeader();
+        policy.WithOrigins(corsUrl)  // Use the correct CORS URL depending on the environment
+              .AllowAnyHeader()
+              .AllowAnyMethod();
     });
 });
+
 
 builder.Services.AddControllers();
 builder.Services.AddScoped<IPdfRepository, PdfRepository>();
 builder.Services.AddScoped<IPdfService, PdfService>();
-ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-
 builder.Services.AddControllers();
 
 var app = builder.Build();
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-app.UseRouting();
-
-app.UseCors("AllowAll");
+// Enable CORS middleware
+app.UseCors("AllowSpecificOrigin");
 
 app.UseAuthorization();
 
