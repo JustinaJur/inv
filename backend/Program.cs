@@ -72,14 +72,24 @@ using static inv.Services.PDFService;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddCors(options =>
+// builder.Services.AddCors(options =>
+// {
+//     options.AddDefaultPolicy(
+//         policy =>
+//         {
+//             policy.WithOrigins("http://localhost:8080",
+//                                 "https://inv-w4uc.onrender.com");
+//         });
+// });
+
+builder.Services.AddCors(builder =>
 {
-    options.AddDefaultPolicy(
-        policy =>
-        {
-            policy.WithOrigins("http://localhost:8080",
-                                "https://inv-w4uc.onrender.com");
-        });
+    builder.AddPolicy("AllowAll", options =>
+    {
+        options.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
 });
 
 builder.Services.AddControllers();
@@ -95,7 +105,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-app.UseCors();
+app.UseCors("AllowAll");
 
 app.UseAuthorization();
 
