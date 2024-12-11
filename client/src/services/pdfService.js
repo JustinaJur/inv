@@ -1,10 +1,8 @@
 import axios from "axios";
 
 const BASE_URL = process.env.VUE_APP_BASE_URL || "http://localhost:5198";
-
 console.log(process.env.VUE_APP_BASE_URL);
 console.log(process.env);
-
 console.log("env", process.env.NODE_ENV);
 
 // Main method for handling file upload and PDF generation
@@ -33,18 +31,17 @@ const createFormData = (file) => {
 
 // Send the Excel file to the backend API and get the generated PDF
 const sendFileToBackend = async (formData) => {
-  const response = await fetch(`${BASE_URL}/api/pdf/generatePdf`, {
-    method: "POST",
-    body: formData,
-  });
-
-  if (!response.ok) {
-    throw new Error(
-      "Failed to generate PDF. Server returned: " + response.statusText
-    );
-  }
-
-  return await response.blob();
+  const { data } = await axios.post(
+    `${BASE_URL}/api/pdf/generatePdf`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      responseType: "blob",
+    }
+  );
+  return data;
 };
 
 // Handle the PDF blob and trigger file download
