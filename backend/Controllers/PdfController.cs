@@ -30,8 +30,8 @@ public class PdfController : ControllerBase
     }
 
     [HttpGet("test")]
-    public IActionResult Test()
+    public ActionResult<string> GetTest()
     {
-        return Ok("test");
+        return Ok("labas");
     }
 }

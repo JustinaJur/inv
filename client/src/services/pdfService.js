@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const BASE_URL = process.env.VUE_APP_BASE_URL || "http://localhost:5198";
 
 console.log(process.env.VUE_APP_BASE_URL);
@@ -45,22 +47,6 @@ const sendFileToBackend = async (formData) => {
   return await response.blob();
 };
 
-export const test = async () => {
-  const response = await fetch(`${BASE_URL}/api/pdf/test`, {
-    method: "GET",
-  });
-
-  console.log("res", response);
-
-  if (!response.ok) {
-    throw new Error(
-      "Failed to generate PDF. Server returned: " + response.statusText
-    );
-  }
-
-  return response;
-};
-
 // Handle the PDF blob and trigger file download
 const initiatePdfDownload = (blob) => {
   const url = window.URL.createObjectURL(blob);
@@ -68,4 +54,14 @@ const initiatePdfDownload = (blob) => {
   link.href = url;
   link.download = "generated_file.pdf";
   link.click();
+};
+
+export const test = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/api/pdf/test`);
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
 };

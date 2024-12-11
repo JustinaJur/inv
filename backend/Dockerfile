@@ -37,19 +37,19 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
 # Set the working directory
 WORKDIR /app
-COPY ../inv.sln ./ 
-#Copy solution file
+
+# Copy solution and project files
+COPY ../inv.sln ./
 COPY backend/backend.csproj ./backend/
 
-# Restore the .NET dependencies using the solution file
+# Restore the .NET dependencies
 RUN dotnet restore inv.sln
 
 # Copy the rest of the application files
-COPY . ./ 
-# Copy all files in the current directory
+COPY . ./
 
 # Publish the application - specify the backend project file
-RUN dotnet publish backend/backend.csproj -c Release -o out
+RUN dotnet publish backend/backend.csproj -c Release -o /app/out
 
 # Use the official .NET runtime image to run the app
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
@@ -57,17 +57,14 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 # Set the working directory
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y \
-    ttf-mscorefonts-installer \
-    fonts-dejavu \
-    fonts-liberation \
-    fontconfig \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+# Install fonts only if necessary (remove if not needed)
+RUN apt-get update && \
+    apt-get install -y ttf-mscorefonts-installer fonts-dejavu fonts-liberation fontconfig && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Copy the published app from the build stage
-COPY --from=build /app/out ./  
-# Copy the app from build stage
+COPY --from=build /app/out ./
 
 # Expose the port your app runs on
 EXPOSE 80
