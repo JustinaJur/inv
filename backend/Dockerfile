@@ -52,15 +52,17 @@ COPY . ./
 # Publish the application - specify the backend project file
 RUN dotnet publish backend/backend.csproj -c Release -o /app/out
 
-# Stage 2: Install fonts
+# Stage 2: Install basic fonts
 FROM debian:bullseye AS fonts
 
-# Install fonts and required utilities
+# Install some basic fonts and font utilities (no MS fonts)
 RUN apt-get update && \
-    apt-get install -y ttf-mscorefonts-installer fonts-dejavu fonts-liberation fontconfig && \
+    apt-get install -y \
+    fonts-dejavu \
+    fonts-liberation \
+    fontconfig && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
-    # update font cache
     fc-cache -f -v
 
 # Stage 3: Final image
@@ -81,4 +83,3 @@ EXPOSE 80
 
 # Set the entry point to run the application
 ENTRYPOINT ["dotnet", "backend.dll"]
-
