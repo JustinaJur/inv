@@ -20,8 +20,8 @@
       </div>  -->
 
       <input type="file" @change="handleFileUpload" />
-      <!-- <button @click="getPdf" class="cosmic-button">Generate PDF</button> -->
-      <button @click="test" class="cosmic-button">Generate PDF</button>
+      <button @click="getPdf" class="cosmic-button">Generate PDF</button>
+      <!-- <button @click="test" class="cosmic-button">Generate PDF</button> -->
     </div>
   </div>
 </template>
@@ -30,8 +30,8 @@
 import "jspdf-autotable";
 import { loadFonts } from "@/services/helpers/fonts.js";
 import {
-  // generatePdfFromExcel,
-  test,
+  generatePdfFromExcel,
+  //  test,
 } from "@/services/pdfService.js";
 
 export default {
@@ -59,19 +59,14 @@ export default {
     handleFileUpload(event) {
       this.file = event.target.files[0];
     },
-    // async getPdf() {
-    //   const { file } = this;
+    async getPdf() {
+      const { file } = this;
 
-    //   if (!file) {
-    //     alert("Please select an Excel file");
-    //     return;
-    //   }
-    //   generatePdfFromExcel(file);
-    // },
-    test() {
-      console.log("ddd");
-      const a = test();
-      console.log(a);
+      if (!file) {
+        alert("Please select an Excel file");
+        return;
+      }
+      generatePdfFromExcel(file);
     },
   },
 };
