@@ -59,7 +59,9 @@ FROM debian:bullseye AS fonts
 RUN apt-get update && \
     apt-get install -y ttf-mscorefonts-installer fonts-dejavu fonts-liberation fontconfig && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    # update font cache
+    fc-cache -f -v
 
 # Stage 3: Final image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
