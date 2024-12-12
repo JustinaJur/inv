@@ -1,11 +1,11 @@
 # Stage 1: Build the application
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 
 # Set the working directory
 WORKDIR /app
 
 # Copy solution and project files
-COPY ../inv.sln ./
+COPY ../inv.sln ./ 
 COPY backend/backend.csproj ./backend/
 
 # Restore the .NET dependencies
@@ -31,7 +31,7 @@ RUN apt-get update && \
     fc-cache -f -v
 
 # Stage 3: Final image
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS final
 
 # Copy installed fonts
 COPY --from=fonts /usr/share/fonts/ /usr/share/fonts/

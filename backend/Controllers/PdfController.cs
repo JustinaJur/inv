@@ -12,7 +12,7 @@ public class PdfController : ControllerBase
     }
 
     [HttpPost("generatePdf")]
-    public async Task<IActionResult> generatePdf(IFormFile file)
+    public async Task<IActionResult> GeneratePdf(IFormFile file, [FromForm] string fullName)
     {
         if (file == null || file.Length == 0)
         {
@@ -24,7 +24,9 @@ public class PdfController : ControllerBase
             return BadRequest("Only Excel files are allowed.");
         }
 
+        Console.WriteLine(fullName);
         var pdfBytes = await _pdfService.GeneratePdfFromExcel(file);
+        //   var pdfBytes = await _pdfService.GeneratePdfFromExcel(file, name, bankAccount, email);
 
         return File(pdfBytes, "application/pdf", "saskaita.pdf");
     }

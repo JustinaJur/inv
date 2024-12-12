@@ -9,7 +9,8 @@ namespace inv.Helpers
         // reads excel and extracts students
         public static async Task<List<Student>> ProcessExcelFile(IFormFile file)
         {
-            var Students = new List<Student>();
+            var students = new List<Student>();
+
             using (var stream = new MemoryStream())
             {
                 await file.CopyToAsync(stream);
@@ -27,11 +28,11 @@ namespace inv.Helpers
                             No = decimal.Parse(worksheet.Cells[row, 3].Text),
                             Parent = worksheet.Cells[row, 4].Text
                         };
-                        Students.Add(Student);
+                        students.Add(Student);
                     }
                 }
             }
-            return Students;
+            return students;
         }
 
         public static byte[] GeneratePdf(List<Student> students)
