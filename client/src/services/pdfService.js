@@ -6,7 +6,21 @@ console.log(process.env);
 console.log("env", process.env.NODE_ENV);
 
 // Main method for handling file upload and PDF generation
-export const generatePdfFromExcel = async (file) => {
+export const generatePdfFromExcel = async (formData) => {
+  try {
+    /// const formData = createFormData(file);
+
+    console.log(formData);
+    const pdfBlob = await sendFileToBackend(formData);
+    initiatePdfDownload(pdfBlob);
+  } catch (error) {
+    console.error("Error generating PDF:", error);
+    alert("Something went wrong while generating the PDF.");
+  }
+};
+
+// Main method for handling file upload and PDF generation
+export const generatePdfFromExcel2 = async (file) => {
   if (!file) {
     alert("Please select a valid Excel file.");
     return;
@@ -35,9 +49,9 @@ const sendFileToBackend = async (formData) => {
     `${BASE_URL}/api/pdf/generatePdf`,
     formData,
     {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
+      // headers: {
+      //   "Content-Type": "multipart/form-data",
+      // },
       responseType: "blob",
     }
   );

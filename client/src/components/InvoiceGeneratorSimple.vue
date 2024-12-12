@@ -2,10 +2,10 @@
   <div class="inv-generator">
     <h1>{{ msg }}</h1>
     <div>
-      <!-- <div class="inv-generator_input-fields">
+      <div class="inv-generator_input-fields">
         <label>Vardas Pavardė</label>
         <input type="input" placeholder="Vardas Pavardė" v-model="fullName" />
-        <label>Sąskaitos numeris</label>
+        <!-- <label>Sąskaitos numeris</label>
         <input
           type="input"
           placeholder="Sąskaitos numeris"
@@ -16,8 +16,8 @@
         <label>Už laikotarpį</label>
         <input type="month" v-model="serviceDate" />
         <label>Pamokos kaina</label>
-        <input type="number" v-model="price" />
-      </div>  -->
+        <input type="number" v-model="price" /> -->
+      </div>
 
       <input type="file" @change="handleFileUpload" />
       <button @click="getPdf" class="cosmic-button">Generate PDF</button>
@@ -45,7 +45,7 @@ export default {
       //   excelBody: null,
       //   fileName: null,
       //   billDate: null,
-      //   fullName: null,
+      fullName: null,
       //   accountNumber: null,
       //   price: 6,
       //   serviceDate: null,
@@ -60,13 +60,20 @@ export default {
       this.file = event.target.files[0];
     },
     async getPdf() {
-      const { file } = this;
+      const { file, fullName } = this;
 
       if (!file) {
         alert("Please select an Excel file");
         return;
       }
-      generatePdfFromExcel(file);
+
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("fullName", fullName);
+      // formData.append("bankAccount", this.bankAccount);
+      // formData.append("email", this.email);
+
+      generatePdfFromExcel(formData);
     },
   },
 };

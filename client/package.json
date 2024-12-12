@@ -13,7 +13,8 @@
     "jspdf": "^2.5.2",
     "jspdf-autotable": "^3.8.4",
     "read-excel-file": "^5.8.6",
-    "vue": "^3.2.13"
+    "vue": "^3.2.13",
+    "vue-router": "^4.5.0"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",

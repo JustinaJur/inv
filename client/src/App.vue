@@ -1,17 +1,14 @@
 <template>
-  <InvoiceGeneratorSimple msg="Sąskaitų generatorius" />
+  <div>
+    siaip headeris
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-////import InvoiceGenerator from "./components/InvoiceGenerator.vue";
-import InvoiceGeneratorSimple from "./components/InvoiceGeneratorSimple.vue";
-
 export default {
   name: "App",
-  components: {
-    // InvoiceGenerator,
-    InvoiceGeneratorSimple,
-  },
+  components: {},
 };
 </script>
 
